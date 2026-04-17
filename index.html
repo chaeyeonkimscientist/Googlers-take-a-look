@@ -62,7 +62,6 @@ body { font-family:arial,sans-serif; background:var(--bg); color:var(--text); mi
 #rbody { display:none; width:100%; max-width:660px; padding:16px 24px 40px; }
 #main.rmode #rbody { display:block; }
 .rstats { font-size:13px; color:var(--muted); margin-bottom:16px; }
-
 .rcard { margin-bottom:28px; cursor:pointer; }
 .rcard:hover .rtitle { text-decoration:underline; }
 .rsrc { display:flex; align-items:center; gap:8px; margin-bottom:4px; }
@@ -90,7 +89,6 @@ body { font-family:arial,sans-serif; background:var(--bg); color:var(--text); mi
 
 <div id="topbar">
   <a href="mailto:chaeyeon@uni.minerva.edu" class="tlink">chaeyeon@uni.minerva.edu</a>
-  </a>
   <div class="ticn">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="#5f6368"><path d="M6 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM6 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM6 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
   </div>
@@ -164,8 +162,9 @@ body { font-family:arial,sans-serif; background:var(--bg); color:var(--text); mi
   </div>
 
   <div id="rbody">
-    <div class="rstats" id="rstats">About 5 results (0.03 seconds)</div>
+    <div class="rstats" id="rstats">About 4 results (0.03 seconds)</div>
 
+    <!-- Card 1: The Body Conducts — unchanged -->
     <div class="rcard" onclick="window.open('https://chaeyeonkim.cargo.site/capstone','_blank')">
       <div class="rsrc">
         <div class="rfavi" style="background:#eef2ff;">🧠</div>
@@ -178,37 +177,43 @@ body { font-family:arial,sans-serif; background:var(--bg); color:var(--text); mi
       </div>
     </div>
 
-    <div class="rcard" onclick="window.open('https://drive.google.com/file/d/1b6cQYmZT5SWf1WZ8Fdf_UT2wxcsWzNbh/view?usp=sharing','_blank')">
+    <!-- Card 2: Paramount — replaces NotebookLM -->
+    <div class="rcard" onclick="window.open('https://chaeyeonkim.cargo.site/paramount','_blank')">
       <div class="rsrc">
-        <div class="rfavi" style="background:#f1f3f4;">
-          <svg width="13" height="13" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66 2.84-.62-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg>
-        </div>
-        <span class="rurl">notebooklm.google.com › chaeyeon-kim-brain-session</span>
+        <div class="rfavi" style="background:#f0f4ff;">🎬</div>
+        <span class="rurl">chaeyeon.cargo.site › work › paramount-global</span>
       </div>
-      <div class="rtitle">NotebookLM: AI reads my brain (and gets it slightly wrong)</div>
-      <div class="rdesc">I fed my entire capstone into NotebookLM. Here's the audio it generated, and where I push back.</div>
-      <div class="rtags"><span class="rtag">Google AI</span><span class="rtag">NotebookLM</span><span class="rtag">Audio Overview</span></div>
+      <div class="rtitle">Paramount Global — When the research pipeline is broken, build a new one</div>
+      <div class="rdesc">Automated pre-release content research across 150+ titles and 25 territories using a custom AI agent — cutting production time by 65%. Built audience profiling infrastructure for the Home Entertainment division that opened follow-up research budget.</div>
+      <div class="rtags">
+        <span class="rtag">AI Automation</span><span class="rtag">Content Distribution</span><span class="rtag">Data Infrastructure</span><span class="rtag">CoPilot Agent</span>
+      </div>
     </div>
 
-
-    <div class="rcard" onclick="window.open('https://chaeyeonkim.cargo.site/somnium-1','_blank')">
+    <!-- Card 3: Engagement Study — replaces SOMNIUM -->
+    <div class="rcard" onclick="window.open('https://chaeyeonkim.cargo.site/engagement','_blank')">
       <div class="rsrc">
-        <div class="rfavi" style="background:#fce8e6;">🎬</div>
-        <span class="rurl">chaeyeon.cargo.site › films › somnium</span>
+        <div class="rfavi" style="background:#e6f4ea;">📊</div>
+        <span class="rurl">chaeyeon.cargo.site › research › interactive-media-engagement</span>
       </div>
-      <div class="rtitle">SOMNIUM — Four-Movement Symphony-Film · Berlin 2024</div>
-      <div class="rdesc">Premiered as the sole short film at Vision Vanguards × Apollo Exhibition, Berlin. 60+ orchestral and electronic layers mapping each stage of sleep deprivation. Made because therapy wasn't working and language had stopped being enough.</div>
-      <div class="rtags"><span class="rtag">Berlin Premiere</span><span class="rtag">Symphony-Film</span><span class="rtag">Logic Pro</span></div>
+      <div class="rtitle">What does "engaged" actually mean? A machine learning answer</div>
+      <div class="rdesc">Replicated and extended a study predicting audience engagement from 65,000 interaction logs. Built ML models, ran threshold sensitivity analysis (AUC 0.71 at 70th percentile), and mapped behavioral signals to brain networks. Delivered a product handbook adopted by 12 productions.</div>
+      <div class="rtags">
+        <span class="rtag">ML Modeling</span><span class="rtag">Engagement Research</span><span class="rtag">Neuroscience + Product</span><span class="rtag">R · Python</span>
+      </div>
     </div>
 
+    <!-- Card 4: Short Films — reframed around constraints + ML -->
     <div class="rcard" onclick="window.open('https://chaeyeonkim.cargo.site/short-films','_blank')">
       <div class="rsrc">
         <div class="rfavi" style="background:#fef7e0;">🎞️</div>
         <span class="rurl">chaeyeon.cargo.site › films</span>
       </div>
-      <div class="rtitle">Short Films — STOP · Film Couplesies · And More</div>
-      <div class="rdesc">STOP: 24-hour constraint, ML-generated Gordon Ramsay voice, Morse code, original score. Film Couplesies: three women in therapy, each a coping mechanism. Writer, director, actor, composer — all at once.</div>
-      <div class="rtags"><span class="rtag">24h Constraint</span><span class="rtag">ML Voice</span><span class="rtag">Writer · Director · Composer</span></div>
+      <div class="rtitle">Three Films, Three Cities, Three Impossible Constraints</div>
+      <div class="rdesc">STOP (Taipei, 24hrs): built a Gordon Ramsay ML voice model to satisfy a constraint. Film Couplesies (Buenos Aires): psychological triptych on coping mechanisms — writer, director, actor, composer simultaneously. Each film was a product sprint with a technical problem at its core.</div>
+      <div class="rtags">
+        <span class="rtag">ML Voice Synthesis</span><span class="rtag">24h Constraint</span><span class="rtag">Rapid Prototyping</span><span class="rtag">Writer · Director · Composer</span>
+      </div>
     </div>
 
   </div><!-- end #rbody -->
@@ -288,7 +293,7 @@ function doSearch(q){
   drop.classList.remove('open');
   if(q)sinput.value=q;
   document.getElementById('main').classList.add('rmode');
-  document.getElementById('rstats').textContent='About 5 results (0.0'+Math.ceil(Math.random()*9)+' seconds)';
+  document.getElementById('rstats').textContent='About 4 results (0.0'+Math.ceil(Math.random()*9)+' seconds)';
   const sw=document.getElementById('swrap-home');
   document.getElementById('swrap').appendChild(sw);
 }
@@ -299,7 +304,7 @@ function goHome(){
   document.getElementById('main').insertBefore(sw,document.getElementById('scontrols'));
 }
 
-const queries=['who is chaeyeon kim','eeg → music pipeline','the body conducts','somnium berlin premiere','neuroscientist · musician · datascientist'];
+const queries=['who is chaeyeon kim','eeg → music pipeline','the body conducts','paramount ai automation','predicting engagement with ML'];
 let qi=0;
 function cycle(){
   if(document.activeElement===sinput)return;
