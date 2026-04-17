@@ -110,7 +110,7 @@ body { font-family:arial,sans-serif; background:var(--bg); color:var(--text); mi
     <div id="logo">
       <span class="g1">C</span><span class="g2">h</span><span class="g3">a</span><span class="g4">e</span><span class="g5">y</span><span class="g6">e</span><span class="g1">o</span><span class="g2">n</span>
     </div>
-    <div class="logo-sub">neuroscientist · composer · filmmaker · software engineer</div>
+    <div class="logo-sub">neuroscience · music · data science · user experience</div>
   </div>
 
   <div id="swrap-home" style="width:100%;max-width:584px;position:relative;">
@@ -160,7 +160,6 @@ body { font-family:arial,sans-serif; background:var(--bg); color:var(--text); mi
   </div>
 
   <div id="btnrow">
-    <button class="gbtn" onclick="doSearch('chaeyeon kim')">Chaeyeon Search</button>
     <button class="gbtn" onclick="doSearch('the body conducts')">I'm Feeling Creative</button>
   </div>
 
@@ -300,7 +299,7 @@ function goHome(){
   document.getElementById('main').insertBefore(sw,document.getElementById('scontrols'));
 }
 
-const queries=['who is chaeyeon kim','eeg → music pipeline','the body conducts','somnium berlin premiere','neuroscientist · composer · filmmaker'];
+const queries=['who is chaeyeon kim','eeg → music pipeline','the body conducts','somnium berlin premiere','neuroscientist · musician · datascientist'];
 let qi=0;
 function cycle(){
   if(document.activeElement===sinput)return;
