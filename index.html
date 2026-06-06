@@ -59,10 +59,64 @@ body { font-family:arial,sans-serif; background:var(--bg); color:var(--text); mi
 #main.rmode #btnrow { display:none; }
 .gbtn { font-family:arial,sans-serif; font-size:14px; color:var(--text); background:var(--surface); border:1px solid var(--surface); border-radius:4px; padding:9px 18px; cursor:pointer; transition:box-shadow .2s,border-color .2s; }
 .gbtn:hover { box-shadow:0 1px 3px rgba(0,0,0,.2); border-color:var(--border); }
-#rbody { display:none; width:100%; max-width:660px; padding:16px 24px 40px; }
+
+/* ── Result body ── */
+#rbody { display:none; width:100%; max-width:660px; padding:0 24px 40px; }
 #main.rmode #rbody { display:block; }
-.rstats { font-size:13px; color:var(--muted); margin-bottom:16px; }
-.rcard { margin-bottom:28px; cursor:pointer; }
+.rstats { font-size:13px; color:var(--muted); margin-bottom:0; padding:12px 0 0; }
+
+/* ── Category tabs ── */
+#cat-tabs {
+  display:flex;
+  align-items:center;
+  gap:0;
+  border-bottom:1px solid var(--border);
+  margin:10px 0 20px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+#cat-tabs::-webkit-scrollbar { display:none; }
+.ctab {
+  font-size:14px;
+  color:var(--muted);
+  padding:10px 18px;
+  cursor:pointer;
+  border-bottom:3px solid transparent;
+  margin-bottom:-1px;
+  white-space:nowrap;
+  transition:color .15s,border-color .15s;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  letter-spacing:.01em;
+  user-select:none;
+}
+.ctab:hover { color:var(--text); }
+.ctab.active { color:var(--blue); border-bottom-color:var(--blue); font-weight:500; }
+.ctab .ctab-icon { font-size:13px; }
+.ctab .ctab-count {
+  font-size:11px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:1px 7px;
+  color:var(--muted);
+  font-weight:400;
+  transition:background .15s,color .15s;
+}
+.ctab.active .ctab-count {
+  background:#e8f0fe;
+  border-color:#c5d4fb;
+  color:var(--blue);
+}
+
+/* ── Cards ── */
+@keyframes fiu { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+.rcard { margin-bottom:28px; cursor:pointer; animation:fiu .25s ease forwards; opacity:0; }
+.rcard:nth-child(1){animation-delay:.02s}
+.rcard:nth-child(2){animation-delay:.07s}
+.rcard:nth-child(3){animation-delay:.12s}
+.rcard:nth-child(4){animation-delay:.17s}
 .rcard:hover .rtitle { text-decoration:underline; }
 .rsrc { display:flex; align-items:center; gap:8px; margin-bottom:4px; }
 .rfavi { width:18px; height:18px; border-radius:3px; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
@@ -71,16 +125,49 @@ body { font-family:arial,sans-serif; background:var(--bg); color:var(--text); mi
 .rdesc { font-size:14px; color:var(--muted); line-height:1.6; }
 .rtags { display:flex; flex-wrap:wrap; gap:5px; margin-top:8px; }
 .rtag { font-size:12px; padding:3px 10px; border-radius:12px; border:1px solid var(--border); color:var(--muted); background:var(--surface); }
-@keyframes fiu { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
-.rcard { animation:fiu .25s ease forwards; opacity:0; }
-.rcard:nth-child(3){animation-delay:.05s} .rcard:nth-child(4){animation-delay:.1s}
-.rcard:nth-child(5){animation-delay:.15s} .rcard:nth-child(6){animation-delay:.2s}
-.rcard:nth-child(7){animation-delay:.25s}
+
+/* hidden state for filtered cards */
+.rcard.hidden { display:none; }
+
+/* ── Footer ── */
 #footer { background:var(--surface); border-top:1px solid var(--border); padding:12px 24px; display:flex; justify-content:space-between; align-items:center; flex-shrink:0; }
-.flinks { display:flex; gap:20px; }
+.flinks { display:flex; gap:20px; align-items:center; }
 .flink { font-size:13px; color:var(--muted); text-decoration:none; }
 .flink:hover { color:var(--text); text-decoration:underline; }
 #feeg { font-size:11px; color:var(--muted); font-family:monospace; }
+
+/* footer resume flyup */
+.flink-resume { position:relative; }
+.fresume-label { font-size:13px; color:var(--muted); cursor:pointer; user-select:none; letter-spacing:.01em; }
+.flink-resume:hover .fresume-label { color:var(--text); }
+.fresume-popup {
+  display:none;
+  position:absolute;
+  bottom:calc(100% + 8px);
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:10px;
+  box-shadow:var(--shadow-h);
+  overflow:hidden;
+  white-space:nowrap;
+  z-index:300;
+  min-width:150px;
+}
+.flink-resume:hover .fresume-popup { display:block; }
+.fresume-opt {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 16px;
+  font-size:13px;
+  color:var(--text);
+  text-decoration:none;
+  transition:background .12s;
+}
+.fresume-opt:hover { background:var(--surface); }
+.fresume-opt + .fresume-opt { border-top:1px solid var(--border); }
 </style>
 </head>
 <body>
@@ -135,9 +222,15 @@ body { font-family:arial,sans-serif; background:var(--bg); color:var(--text); mi
         <div><div class="dtxt">Email Chaeyeon</div><div class="dsub">chaeyeonkimwork@gmail.com</div></div>
         <div class="darr">↗</div>
       </a>
-      <a class="ditem" href="https://drive.google.com/file/d/1Zd8dfxDcoFcYhUT4yRVzv1ANiIugN92C/view?usp=sharing" target="_blank">
-        <div class="dico">📄</div>
-        <div><div class="dtxt">Resume</div><div class="dsub">Chaeyeon Kim — Creative Resume 2026</div></div>
+      <div class="dlabel" style="padding-top:4px;padding-bottom:2px;">📄 Resume</div>
+      <a class="ditem ditem-split" href="https://drive.google.com/file/d/10TckP9Rq-PHH9NDQJQi-kuVo2ljO00aw/view?usp=sharing" target="_blank">
+        <div class="dico" style="background:#e8f0fe;">⚙️</div>
+        <div><div class="dtxt">Technical Resume</div><div class="dsub">Data · AI · UX Research</div></div>
+        <div class="darr">↗</div>
+      </a>
+      <a class="ditem ditem-split" href="https://drive.google.com/file/d/10TckP9Rq-PHH9NDQJQi-kuVo2ljO00aw/view?usp=sharing" target="_blank">
+        <div class="dico" style="background:#fef7e0;">🎨</div>
+        <div><div class="dtxt">Creative Resume</div><div class="dsub">Film · Music · Design</div></div>
         <div class="darr">↗</div>
       </a>
       <a class="ditem" href="https://chaeyeonkim.cargo.site/" target="_blank">
@@ -164,21 +257,26 @@ body { font-family:arial,sans-serif; background:var(--bg); color:var(--text); mi
   <div id="rbody">
     <div class="rstats" id="rstats">About 4 results (0.03 seconds)</div>
 
-    <!-- Card 1: The Body Conducts — unchanged -->
-    <div class="rcard" onclick="window.open('https://chaeyeonkim.cargo.site/capstone','_blank')">
-      <div class="rsrc">
-        <div class="rfavi" style="background:#eef2ff;">🧠</div>
-        <span class="rurl">chaeyeon.cargo.site › capstone › the-body-conducts</span>
+    <!-- Category tabs -->
+    <div id="cat-tabs">
+      <div class="ctab active" data-cat="all" onclick="setTab('all')">
+        <span>All</span>
+        <span class="ctab-count" id="count-all">4</span>
       </div>
-      <div class="rtitle">The Body Conducts — EEG · Music · Film</div>
-      <div class="rdesc">Five original scores made of brainwaves. Three films. A female conductor whose orchestra refuses to sync, mirroring how chronic stress causes body systems to miscoordinate. No one had made this felt through biometric data, music, and film simultaneously.</div>
-      <div class="rtags">
-        <span class="rtag">EEG → MIDI</span><span class="rtag">Psychoneuroimmunology</span><span class="rtag">Science Art</span><span class="rtag">Logic Pro · Python</span>
+      <div class="ctab" data-cat="technical" onclick="setTab('technical')">
+        <span class="ctab-icon">⚙️</span>
+        <span>Technical</span>
+        <span class="ctab-count" id="count-technical">2</span>
+      </div>
+      <div class="ctab" data-cat="creative" onclick="setTab('creative')">
+        <span class="ctab-icon">🎨</span>
+        <span>Creative</span>
+        <span class="ctab-count" id="count-creative">2</span>
       </div>
     </div>
 
-    <!-- Card 2: Paramount — replaces NotebookLM -->
-    <div class="rcard" onclick="window.open('https://chaeyeonkim.cargo.site/paramount','_blank')">
+    <!-- Card 1: Technical -->
+    <div class="rcard" data-cat="technical" onclick="window.open('https://chaeyeonkim.cargo.site/paramount','_blank')">
       <div class="rsrc">
         <div class="rfavi" style="background:#f0f4ff;">🎬</div>
         <span class="rurl">chaeyeon.cargo.site › work › paramount-global</span>
@@ -190,8 +288,8 @@ body { font-family:arial,sans-serif; background:var(--bg); color:var(--text); mi
       </div>
     </div>
 
-    <!-- Card 3: Engagement Study -->
-    <div class="rcard" onclick="window.open('https://chaeyeonkim.cargo.site/interactive-media-and-engagement','_blank')">
+    <!-- Card 2: Technical -->
+    <div class="rcard" data-cat="technical" onclick="window.open('https://chaeyeonkim.cargo.site/interactive-media-and-engagement','_blank')">
       <div class="rsrc">
         <div class="rfavi" style="background:#e6f4ea;">📊</div>
         <span class="rurl">chaeyeon.cargo.site › research › interactive-media-engagement</span>
@@ -203,8 +301,21 @@ body { font-family:arial,sans-serif; background:var(--bg); color:var(--text); mi
       </div>
     </div>
 
-    <!-- Card 4: Short Films — reframed around constraints + ML -->
-    <div class="rcard" onclick="window.open('https://chaeyeonkim.cargo.site/short-films','_blank')">
+    <!-- Card 3: Creative -->
+    <div class="rcard" data-cat="creative" onclick="window.open('https://chaeyeonkim.cargo.site/capstone','_blank')">
+      <div class="rsrc">
+        <div class="rfavi" style="background:#eef2ff;">🧠</div>
+        <span class="rurl">chaeyeon.cargo.site › capstone › the-body-conducts</span>
+      </div>
+      <div class="rtitle">The Body Conducts — EEG · Music · Film</div>
+      <div class="rdesc">Five original scores made of brainwaves. Three films. A female conductor whose orchestra refuses to sync, mirroring how chronic stress causes body systems to miscoordinate. No one had made this felt through biometric data, music, and film simultaneously.</div>
+      <div class="rtags">
+        <span class="rtag">EEG → MIDI</span><span class="rtag">Psychoneuroimmunology</span><span class="rtag">Science Art</span><span class="rtag">Logic Pro · Python</span>
+      </div>
+    </div>
+
+    <!-- Card 4: Creative -->
+    <div class="rcard" data-cat="creative" onclick="window.open('https://chaeyeonkim.cargo.site/short-films','_blank')">
       <div class="rsrc">
         <div class="rfavi" style="background:#fef7e0;">🎞️</div>
         <span class="rurl">chaeyeon.cargo.site › films</span>
@@ -224,12 +335,19 @@ body { font-family:arial,sans-serif; background:var(--bg); color:var(--text); mi
   <div class="flinks">
     <a class="flink" href="mailto:chaeyeonkimwork@gmail.com">Contact</a>
     <a class="flink" href="https://chaeyeonkim.cargo.site/" target="_blank">Portfolio</a>
-    <a class="flink" href="https://drive.google.com/file/d/1Zd8dfxDcoFcYhUT4yRVzv1ANiIugN92C/view?usp=sharing" target="_blank">Resume</a>
+    <div class="flink-resume">
+      <span class="flink fresume-label">Resume ▴</span>
+      <div class="fresume-popup">
+        <a class="fresume-opt" href="https://drive.google.com/file/d/1Zd8dfxDcoFcYhUT4yRVzv1ANiIugN92C/view?usp=sharing" target="_blank">⚙️ Technical</a>
+        <a class="fresume-opt" href="https://drive.google.com/file/d/1Zd8dfxDcoFcYhUT4yRVzv1ANiIugN92C/view?usp=sharing" target="_blank">🎨 Creative</a>
+      </div>
+    </div>
   </div>
   <div id="feeg">α: stable</div>
 </div>
 
 <script>
+/* ── EEG canvas ── */
 const cv=document.getElementById('eeg-canvas'),cx=cv.getContext('2d');
 let W,H,t=0,sv=0.12,tv=0.12;
 function rsz(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
@@ -253,6 +371,7 @@ function drawEEG(){
 }
 drawEEG();
 
+/* ── Slider / EEG readout ── */
 const sl=document.getElementById('slider'),er=document.getElementById('eegread'),fe=document.getElementById('feeg');
 const states=[
   {txt:'baseline · HPA axis: inactive · stress index: ',fa:'α: stable',tc:'#5f6368'},
@@ -278,6 +397,7 @@ sl.addEventListener('input',()=>{
   if(sb){sb.style.borderColor=bc;sb.style.boxShadow=bs;}
 });
 
+/* ── Search dropdown ── */
 const sinput=document.getElementById('sinput'),drop=document.getElementById('drop'),sbox=document.getElementById('sbox');
 sinput.addEventListener('focus',()=>{drop.classList.add('open');sbox.classList.add('focus');sbox.style.borderRadius='24px 24px 0 0';});
 document.addEventListener('click',e=>{
@@ -296,6 +416,8 @@ function doSearch(q){
   document.getElementById('rstats').textContent='About 4 results (0.0'+Math.ceil(Math.random()*9)+' seconds)';
   const sw=document.getElementById('swrap-home');
   document.getElementById('swrap').appendChild(sw);
+  // reset tab to All on new search
+  setTab('all');
 }
 function goHome(){
   document.getElementById('main').classList.remove('rmode');
@@ -304,6 +426,37 @@ function goHome(){
   document.getElementById('main').insertBefore(sw,document.getElementById('scontrols'));
 }
 
+/* ── Tab filtering ── */
+let activeTab = 'all';
+function setTab(cat) {
+  activeTab = cat;
+  // update tab styles
+  document.querySelectorAll('.ctab').forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.cat === cat);
+  });
+  // show / hide cards
+  const cards = document.querySelectorAll('.rcard');
+  let visible = 0;
+  cards.forEach(card => {
+    const match = cat === 'all' || card.dataset.cat === cat;
+    card.classList.toggle('hidden', !match);
+    // re-trigger animation for visible cards
+    if (match) {
+      card.style.animation = 'none';
+      card.style.opacity = '0';
+      requestAnimationFrame(() => {
+        card.style.animation = '';
+      });
+      visible++;
+    }
+  });
+  // update result count
+  const allCount = document.querySelectorAll('.rcard').length;
+  document.getElementById('rstats').textContent =
+    `About ${visible} result${visible !== 1 ? 's' : ''} (0.0${Math.ceil(Math.random()*9)} seconds)`;
+}
+
+/* ── Auto-typing placeholder ── */
 const queries=['who is chaeyeon kim','eeg → music pipeline','the body conducts','paramount ai automation','predicting engagement with ML'];
 let qi=0;
 function cycle(){
